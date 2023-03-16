@@ -9,12 +9,15 @@ import {
   Delete,
   HttpStatus,
   HttpCode,
+  Res,
   // ParseIntPipe,
 } from '@nestjs/common';
 
-import { ProductsService } from 'src/services/products.service';
-import { ParseIntPipe } from 'src/common/parse-int/parse-int.pipe';
-import { CreateProductDto, UpdateProductDto } from 'src/dtos/products.dtos';
+import { Response } from 'express';
+import { ParseIntPipe } from '../../common/parse-int.pipe';
+import { CreateProductDto, UpdateProductDto } from '../dtos/products.dtos';
+
+import { ProductsService } from './../services/products.service';
 
 @Controller('products')
 export class ProductsController {
@@ -26,26 +29,24 @@ export class ProductsController {
     @Query('offset') offset = 0,
     @Query('brand') brand: string,
   ) {
-    // // return {
-    // //   message: `products: limit=> ${limit} offset=> ${offset} brand=> ${brand}`,
-    // // };
+    // return {
+    //   message: `products limit=> ${limit} offset=> ${offset} brand=> ${brand}`,
+    // };
     return this.productsService.findAll();
   }
 
   @Get('filter')
   getProductFilter() {
-    return {
-      message: `soy un filter`,
-    };
+    return `yo soy un filter`;
   }
 
   @Get(':productId')
   @HttpCode(HttpStatus.ACCEPTED)
-  getProduct(@Param('productId', ParseIntPipe) productId: number) {
-    // return {
+  getOne(@Param('productId', ParseIntPipe) productId: number) {
+    // response.status(200).send({
     //   message: `product ${productId}`,
-    // };
-    return this.productsService.findOne(+productId);
+    // });
+    return this.productsService.findOne(productId);
   }
 
   @Post()
