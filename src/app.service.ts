@@ -1,6 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
-import { resolve } from 'path';
 import { Client } from 'pg';
 
 import config from './config';
