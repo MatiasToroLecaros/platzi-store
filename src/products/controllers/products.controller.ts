@@ -10,10 +10,12 @@ import {
   HttpStatus,
   HttpCode,
   Res,
+  UseGuards,
   // ParseIntPipe,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 import { ParseIntPipe } from '../../common/parse-int.pipe';
 import {
@@ -24,6 +26,7 @@ import {
 
 import { ProductsService } from './../services/products.service';
 
+@UseGuards(AuthGuard('jwt'))
 @ApiTags('products')
 @Controller('products')
 export class ProductsController {
